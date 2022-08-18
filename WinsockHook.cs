@@ -373,7 +373,8 @@ namespace NoAnkama
         /// </summary>
         private void Check()
         {
-            if (!_process.Modules.Any(module => module.ModuleName.ToLower() == "ws2_32.dll"))
+            if (!_process.Modules.Cast<ProcessModule>()
+                .Any(module => module.ModuleName.Equals("ws2_32.dll", StringComparison.InvariantCultureIgnoreCase)))
             {
                 throw new DllNotFoundException();
             }
